@@ -76,9 +76,12 @@ def lambda_handler(event, context):
                 'CallerReference': str(uuid.uuid4())
             }
         )
+
         invalidation_id = response['Invalidation']['Id']
+
         print("CloudFront invalidation started")
         print("Invalidation ID:", invalidation_id)
+
         return {
             'statusCode': 200,
             'body': json.dumps({
@@ -86,10 +89,9 @@ def lambda_handler(event, context):
                 'id': invalidation_id
             })
         }
+
     except Exception as e:
         print("Invalidation failed:", str(e))
-        raise
-
         raise
 
 
