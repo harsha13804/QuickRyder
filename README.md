@@ -11,19 +11,26 @@ inotifywait -m -r \
   -e close_write,moved_to,create,delete \
   --format '%w%f' "$WATCH_DIR" |
 while read FILE
+
 do
+
     case "$FILE" in
         *.tmp|*.swp|*~) continue ;;
     esac
+    
     echo "Website updated: $FILE"
+    
     sleep 3
+    
     aws lambda invoke \
       --function-name CloudFrontAutoInvalidation \
       --invocation-type Event \
       --cli-binary-format raw-in-base64-out \
       --payload '{}' \
       /tmp/lambda-response.json
+      
     echo "CloudFront invalidation triggered."
+    
 done
 
 sudo dnf install -y nginx inotify-tools
