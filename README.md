@@ -65,6 +65,7 @@ cloudfront = boto3.client('cloudfront')
 DISTRIBUTION_ID = "E38MGBC4XC51JD"
 
 def lambda_handler(event, context):
+
     try:
         response = cloudfront.create_invalidation(
             DistributionId=DISTRIBUTION_ID,
