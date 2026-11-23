@@ -103,5 +103,28 @@ def lambda_handler(event, context):
         raise
 
 
+lambda policy:
 
+  {
+	"Version": "2012-10-17",
+	"Statement": [
+		{
+			"Effect": "Allow",
+			"Action": "cloudfront:CreateInvalidation",
+			"Resource": "arn:aws:cloudfront::313941175507:distribution/E38MGBC4XC51JD"
+		}
+	]
+}
 
+ec2 policy:
+
+  {
+	"Version": "2012-10-17",
+	"Statement": [
+		{
+			"Effect": "Allow",
+			"Action": "lambda:InvokeFunction",
+			"Resource": "arn:aws:lambda:us-east-1:313941175507:function:CloudFrontAutoInvalidation"
+		}
+	]
+}
