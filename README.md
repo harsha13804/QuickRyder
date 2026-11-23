@@ -2,7 +2,7 @@
 
 
 sudo vi /usr/local/bin/watch-website.sh
-
+```
 #!/bin/bash
 
 WATCH_DIR="/usr/share/nginx/html"
@@ -32,11 +32,11 @@ do
     echo "CloudFront invalidation triggered."
     
 done
-
+```
 sudo dnf install -y nginx inotify-tools
 
 sudo vi /etc/systemd/system/website-watcher.service
-
+```
 [Unit]
 Description=Nginx Website Auto Update Watcher
 After=network-online.target
@@ -51,7 +51,7 @@ RestartSec=5
 
 [Install]
 WantedBy=multi-user.target
-
+```
 sudo chmod +x /usr/local/bin/watch-website.sh
 
 sudo systemctl daemon-reload
@@ -62,7 +62,7 @@ sudo systemctl status website-watcher
 
 
 #lambda Function
-
+```
 import boto3
 import json
 import uuid
@@ -101,10 +101,10 @@ def lambda_handler(event, context):
     except Exception as e:
         print("Invalidation failed:", str(e))
         raise
-
+```
 
 lambda policy:
-
+```
   {
 	"Version": "2012-10-17",
 	"Statement": [
@@ -115,9 +115,9 @@ lambda policy:
 		}
 	]
 }
-
+```
 ec2 policy:
-
+```
   {
 	"Version": "2012-10-17",
 	"Statement": [
@@ -128,3 +128,4 @@ ec2 policy:
 		}
 	]
 }
+```
